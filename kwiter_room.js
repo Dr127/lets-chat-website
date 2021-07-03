@@ -1,6 +1,12 @@
-var firebaseConfig = {
+user_name = localStorage.getItem("user_name")
+document.getElementById("user_name"). innerHTML = "Welcome " + user_name + "!";
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
     apiKey: "AIzaSyCZaAIaWm2uniiQm-1JrWdt2O-kD1SoYo4",
     authDomain: "classtest-e92a8.firebaseapp.com",
+    databaseURL: "https://classtest-e92a8-default-rtdb.firebaseio.com",
     projectId: "classtest-e92a8",
     storageBucket: "classtest-e92a8.appspot.com",
     messagingSenderId: "516825638176",
@@ -10,16 +16,9 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  function getData(){
-    firebase.database().ref("/").on('value', function (snapshot) {
-        document.getElementById("output").innerHTML = "";
-        snapshot.forEach(function (childSnapshot) {
-          childKey = childSnapshot.key;
-          Room_names = childKey;
-          //Start code
-    
-          //End code
-        });
-      });
-    }
-    getData();
+    user_name = document.getElementById("user_name").value;
+
+    firebase.database().ref("/").child(user_name).update({
+      purpose: "adding user"
+    })
+  
